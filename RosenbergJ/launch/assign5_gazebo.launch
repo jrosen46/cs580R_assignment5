@@ -5,11 +5,12 @@
 
     <!-- Launch amcl -->
     <include file="$(find turtlebot_gazebo)/launch/amcl_demo.launch">
-        <arg name="map_file" value="$(find Assignment4)/maps/my_map.yaml"/>
+        <arg name="map_file" value="$(find RosenbergJ)/maps/my_map.yaml"/>
     </include>
 
     <!-- Launch rviz -->
     <include file="$(find turtlebot_rviz_launchers)/launch/view_navigation.launch"/>
+
     <!-- Launch pocketsphinx recognizer -->
     <include file="$(find RosenbergJ)/launch/pocketsphinx.launch"/>
 

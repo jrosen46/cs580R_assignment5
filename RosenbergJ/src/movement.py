@@ -26,7 +26,7 @@ def _forward(pub):
     dist = 0
     t0 = rospy.get_time()
 
-    while dist < 1.:
+    while dist < .5:
         pub.publish(move_msg)
         t1 = rospy.get_time()
         dist = (t1-t0)*.4
@@ -41,7 +41,7 @@ def _forward_ac(ac):
     goal = MoveBaseGoal()
     goal.target_pose.header.frame_id = 'base_link'
 
-    target = {'x': 1., 'y': 0., 'z': 0.}
+    target = {'x': .5, 'y': 0., 'z': 0.}
     q = {'x': 0., 'y': 0., 'z': 0., 'w': 1.}
 
     goal.target_pose.header.stamp = rospy.get_rostime()
