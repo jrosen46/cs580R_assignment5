@@ -1,0 +1,9 @@
+<launch>
+
+    <!-- Launch pocketsphinx recognizer -->
+    <include file="$(find RosenbergJ)/launch/pocketsphinx.launch"/>
+
+    <!-- Launch node to move turtlebot -->
+    <node pkg="RosenbergJ" type="movement.py" name="movement" output="screen"/>
+
+</launch>
