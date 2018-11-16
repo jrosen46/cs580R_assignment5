@@ -5,6 +5,7 @@ movement.py
 
 """
 import math
+import time
 
 import rospy
 from std_msgs.msg import String
@@ -32,7 +33,7 @@ def _forward(pub):
         dist = (t1-t0)*.4
 
 
-def _forward_ac(ac):
+def _full_speed(ac):
     """Move turtlebot forward.
 
     """
@@ -41,13 +42,14 @@ def _forward_ac(ac):
     goal = MoveBaseGoal()
     goal.target_pose.header.frame_id = 'base_link'
 
-    target = {'x': .5, 'y': 0., 'z': 0.}
+    target = {'x': 3., 'y': 0., 'z': 0.}
     q = {'x': 0., 'y': 0., 'z': 0., 'w': 1.}
 
     goal.target_pose.header.stamp = rospy.get_rostime()
     goal.target_pose.pose = Pose(Point(**target), Quaternion(**q))
     ac.send_goal(goal)
     ac.wait_for_result(rospy.Duration(10))
+    ac.cancel_all_goals()
 
 
 def _rotate(pub, degrees, direction):
@@ -92,10 +94,10 @@ def process_kw(data, args):
 
     keyword_actions = {
         'forward': lambda: _forward(pub),
-        #'forward': lambda: _forward_ac(ac),
-        'right turn': lambda: _rotate(pub, 90., 'clockwise'),
-        'left turn': lambda: _rotate(pub, 90., 'counter clockwise'),
-        'back': lambda: _rotate(pub, 90., 'counter clockwise'),
+        'full speed': lambda: _full_speed(ac),
+        'right': lambda: _rotate(pub, 30., 'clockwise'),
+        'left': lambda: _rotate(pub, 10., 'counter clockwise'),
+        #'stop': lambda: _stop(pub),
     }
 
     # TODO: We need to ask for confirmation
